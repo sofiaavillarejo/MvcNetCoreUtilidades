@@ -1,12 +1,14 @@
 using MvcNetCoreUtilidades.Helpers;
+using MvcNetCoreUtilidades.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<HelperPathProvider>();
+builder.Services.AddTransient<RepositoryCoches>();
 // Add services to the container.
 builder.Services.AddMemoryCache(); //necesario para almacenar en cache
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddSession();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,7 +22,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapStaticAssets();

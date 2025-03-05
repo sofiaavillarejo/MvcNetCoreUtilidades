@@ -18,7 +18,7 @@ namespace MvcNetCoreUtilidades.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Privacy()  
         {
             return View();
         }
@@ -27,6 +27,25 @@ namespace MvcNetCoreUtilidades.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LogIn(string usuario)
+        {
+            HttpContext.Session.SetString("USUARIO", usuario);
+            ViewData["MENSAJE"] = "Usuario validado";
+            return View();
+        }
+
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("USUARIO");
+            return RedirectToAction("Index");
         }
     }
 }

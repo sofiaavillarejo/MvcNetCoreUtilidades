@@ -1,0 +1,28 @@
+﻿@section Scripts{
+	<script>
+		$(document).ready(function(){
+			$("#btnloadcoches").click(function(){
+				$("#containercoches").load("/Coches/_CochesPartial");
+			})
+
+			$("#btnbuscarcoche").click(function(){
+				//PARA ENVIAR PARAMETROS, SI NUESTRO PARAM SE LLAMA id, PONEMOS UNA BARRA Y EL VALOR DEL PARAM EN LA LLAMADA -> controller/action/id
+				//SI EL PARAM SE LLAMA DE FORMA DISTINTIA, DEBEMOS HACERLO CON LAS LLAMADAS DE HTML GET -> controller/action?param1=valor
+				//SI EXISTE MAS DE UN PARAM EN LA PETICION -> controller/action?param1=valor&param2=valor2
+				var id=$("#cajaidcoche").val();
+				var request = "/Coches/_CochesPost?idcoche=" + id;
+				$("#detallescoche").load(request);
+			});
+		})
+	</script>
+}
+<h1>Index de AJAX Coches</h1>
+
+<label>Id Coche</label>
+<input type="text" id="cajaidcoche" class="form-control"/>
+
+<button id="btnbuscarcoche" class="btn btn-danger">Buscar coche</button>
+<div id="detallescoche" style="background-color: lightcoral"></div>
+
+<button id="btnloadcoches" class="btn btn-warning">Load coches AJAX</button>
+<div id="containercoches" style="background-color: lightgreen"></div>
